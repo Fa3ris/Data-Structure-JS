@@ -4,7 +4,7 @@ import { hash } from "./hash-table.mjs";
 import { HashTable } from "./hash-table.mjs";
 
 
-const nbBuckets = 4;
+const nbBuckets = 16;
 console.log(`'hello' hash = ${hash('hello', nbBuckets)}`);
 console.log(`'world' hash = ${hash('world', nbBuckets)}`);
 console.log(`'hello world' hash = ${hash('hello world', nbBuckets)}`);
@@ -24,8 +24,6 @@ hashTable.add('hello', 1145);
 hashTable.print();
 console.log(`key 'hello' value = ${hashTable.get('hello')}`);
 console.log(`key 'absent' value = ${hashTable.get('absent')}`);
-
-
 
 console.log(`remove 'absent' : ${hashTable.remove('absent')}`);
 hashTable.print();

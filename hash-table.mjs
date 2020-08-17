@@ -4,7 +4,6 @@ export function hash(string, max) {
     for (let i = 0; i < string.length; i++) {
         hash += string.charCodeAt(i);
     }
-    // console.log(`hash for ${string} = ${hash}`);
     return hash % max;
 }
 
@@ -61,11 +60,13 @@ export class HashTable {
         if (!this.storage[id]) {
             return false;
         }
+        // delete bucket
         if (this.storage[id].length === 1 && this.storage[id][0].key === key) {
             delete this.storage[id];
             return true;
         }
 
+        // delete key in bucket
         for (let i = 0; i < this.storage[id].length; i++) {
             if (this.storage[id][i].key === key) {
                 delete this.storage[id][i];
