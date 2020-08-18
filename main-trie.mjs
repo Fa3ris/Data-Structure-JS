@@ -28,3 +28,10 @@ trie.add(undefined);
 console.log(`trie = ${trie.print()}`);
 console.log(`'at' is a word: ${trie.isWord('at')}`);
 console.log(`'lol' is a word: ${trie.isWord('lol')}`);
+
+
+const trie2 = new Trie();
+
+trie2.add('hello');
+trie2.add('hell');
+console.log(`'hello' is a word: ${trie.isWord('hello')}`);

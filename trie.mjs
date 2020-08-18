@@ -28,12 +28,14 @@ export class Trie {
      * @param node node where to store the remaining word
      */
     add(value = '', node = this.root) {
-
-        if(!value) {
+        
+        
+        if(value == null || value == undefined) {
             return;
         }
+        
         value = value.trim();
-
+        
         // if arrived at the node containing 
         // the last character of the string
         if (value.length == 0) {
