@@ -1,7 +1,9 @@
 export class Node {
     children = new Map();
+    
     constructor() {
-        let end = false;
+
+        let end = false
 
         this.isEnd = function () {
             return end;
@@ -73,7 +75,9 @@ export class Trie {
         // check last node has last letter and is end of a word
         return (node.children.has(word) && node.children.get(word).isEnd()) ? true : false;
     }
-
+    /**
+     * return array of words contained in trie
+     */
     print() {
         let words = new Array();
         // begin at root node with string ''
@@ -92,6 +96,33 @@ export class Trie {
             // trie leaf == end of word
             } else {
                 string.length > 0 ? words.push(string) : undefined;
+                return;
+            }
+
+        }
+    }
+
+    /**
+     * return number of words stored in the trie
+     */
+    size() {
+        let count = 0;
+
+        search(this.root, new String());
+        return count;
+
+        function search(node = this.root, string) {
+            // has children
+            if (node.children.size != 0) {
+                for (let letter of node.children.keys()) {
+                    search(node.children.get(letter), string.concat(letter)); 
+                }
+                if (node.isEnd()) {
+                    count++;
+                }
+            // trie leaf == end of word
+            } else {
+                string.length > 0 ? count++ : undefined;
                 return;
             }
 
