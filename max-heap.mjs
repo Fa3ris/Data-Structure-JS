@@ -42,30 +42,45 @@ export class MaxHeap {
     remove() {
         // get highest value
         const res = this.heap.shift();
+
+        // if remain 0 or 1 value in heap => no need for reordering => exit;
+        if (this.heap.length < 2) {
+            return res;
+        }
+
         // place last value at root
         this.heap.unshift(this.heap.pop());
 
-        // begin at root
-        let idx = 0;
-        let left = 2 * idx + 1;
-        let right = 2 * idx + 2;
-
         // only root node children left
+        // swap if necessary
         if (this.heap.length === 2) {
             if (this.heap[0] < this.heap[1]) {
                 [this.heap[0], this.heap[1]] = [this.heap[1], this.heap[0]];
             }
-        } else if (this.heap.length > 2) {
+            
+        // 3 or more nodes
+        } else {
+            
+            // begin at root
+            let idx = 0;
+            let left = 2 * idx + 1;
+            let right = 2 * idx + 2;
+
             // current node is smaller than one of children
             // error if left of right is undefined
             while (this.heap[idx] < this.heap[left] || this.heap[idx] < this.heap[right]) {
-                // swap with left and update idx
-                if (this.heap[idx] < this.heap[left]) {
+               
+                // if node <= left or node <= right
+                // and left > right
+                // then left > right  and left >= node
+
+                // left goes on top                                
+                if (this.heap[right] < this.heap[left]) {
 
                     [this.heap[idx], this.heap[left]] = [this.heap[left], this.heap[idx]];
                     idx = left;
 
-                    // swap with right and update idx
+                // right goes on top
                 } else {
                     [this.heap[idx], this.heap[right]] = [this.heap[right], this.heap[idx]];
                     idx = right;
@@ -80,18 +95,13 @@ export class MaxHeap {
                     if (this.heap[left] && this.heap[idx] < this.heap[left]) {
 
                         [this.heap[idx], this.heap[left]] = [this.heap[left], this.heap[idx]];
-
-                        // swap with right
-                    } else {
-                        [this.heap[idx], this.heap[right]] = [this.heap[right], this.heap[idx]];
                     }
                     // exit loop
                     break;
                 }
-
             }
-        }
 
+        }
         return res;
 
     }
@@ -114,8 +124,10 @@ export class MaxHeap {
 
     sort() {
         let result = new Array();
-        while (this.heap.length > 1) {
+        while (this.heap.length > 0) {
             result.push(this.remove());
+            // console.log('this.heap', this.heap);
+            // console.log('result', result);
         };
         return result;
     }
