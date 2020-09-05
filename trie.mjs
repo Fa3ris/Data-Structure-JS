@@ -78,10 +78,10 @@ export class Trie {
     /**
      * return array of words contained in trie
      */
-    print() {
+    print(node = this.root) {
         let words = new Array();
         // begin at root node with string ''
-        search(this.root, new String());
+        search(node, new String());
         return words.length > 0 ? words : null;
 
         function search(node = this.root, string) {
@@ -126,6 +126,41 @@ export class Trie {
                 return;
             }
 
+        }
+    }
+
+    /**
+     * return array of words beginning with prefix in trie
+     * prefix not present return null
+     * @param prefix 
+     */
+    prefix(prefix) {
+
+        let subNode = subTree.call(this, prefix);
+
+        if (!subNode) { return null; }
+
+        let suffix = this.print(subNode);
+
+        suffix = suffix.map(value => prefix + value);
+
+        return suffix;
+
+        function subTree(prefix) {
+            // go to node containing last character of 'prefix'
+            // start at root
+            // while prefix size > 2
+            // get child node containing first character
+            let node = this.root;
+            while (prefix.length > 0) {
+
+                if (!node.children.has(prefix[0])) {
+                    return null;
+                }
+                node = node.children.get(prefix[0]);
+                prefix = prefix.substring(1);
+            }
+            return node;
         }
     }
 }
